@@ -7,7 +7,7 @@ def makeBoard():
 def printBoard(board):
     print("-------------------")
     for i in range(3):
-        for row in [board[3 * i:3 * (i + 1)]]:
+        for row in [board[3 * i: 3 * i + 3]]:
             print('|  ' + '  |  '.join(row) + '  |')
             print("-------------------")
 
@@ -33,7 +33,7 @@ def validLocations(board):
 def hasWon(board, player):
     # horizontal
     for i in range(3):
-        for row in [board[3 * i:3 * (i + 1)]]:
+        for row in [board[3 * i: 3 * i + 3]]:
             if all([entry == player for entry in row]):
                 return True
     # vertical
@@ -42,11 +42,11 @@ def hasWon(board, player):
         if all([entry == player for entry in col]):
             return True
     # positive sloping diagonal
-    diagonalPos = [board[i] for i in [0, 4, 8]]
+    diagonalPos = [board[0], board[4], board[8]]
     if all([entry == player for entry in diagonalPos]):
         return True
     # negatively sloping diagonal
-    diagonalNeg = [board[i] for i in [2, 4, 6]]
+    diagonalNeg = [board[2], board[4], board[6]]
     if all([entry == player for entry in diagonalNeg]):
         return True
     return False
@@ -107,7 +107,7 @@ def minimax(board, maximizingPlayer, alpha, beta, maximizing):
             if alpha >= beta:
                 break
         return value
-    else: #minimizing
+    else:
         value = float('inf')
         for move in validLocations(board):
             insertInBoard(board, move, minimizingPlayer)
